@@ -30,6 +30,7 @@
       "camelcase": "off",
       "@typescript-eslint/ban-types": "off",
       "no-use-before-define": "off",
+      "object-curly-newline": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
