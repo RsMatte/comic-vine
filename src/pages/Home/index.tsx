@@ -1,7 +1,77 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { config } from '../../config';
+import api from '../../services/api';
+import { Title, Form, Characters, NumberOfResults } from './styles';
 
-const Home: React.FC = () => (
-  <h1>Hello World</h1>
-);
+interface ApiResponse {
+  error: 'string';
+  number_of_page_results: number;
+  number_of_total_results: number;
+  status_code: number;
+  results: CharacterList[],
+}
+
+interface CharacterList {
+  aliases: string;
+  birth?: string;
+  deck: string;
+  description: string;
+  gender: number;
+  id: number;
+  image: {
+    icon_url: string;
+    original_url: string;
+  };
+  name: string;
+  real_name: string;
+}
+
+const Home: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [list, setList] = useState<CharacterList[]>([]);
+
+  useEffect(() => {
+    (async function getList() {
+      const response = await api.get<ApiResponse>(`api/characters/?api_key=${config.apiKey}&format=json`);
+      if (response && response.data) {
+        setList(response.data.results);
+      }
+    }());
+  }, []);
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  return (
+    <>
+      <Title>Encontre os seus personagens preferidos</Title>
+      <Form onSubmit={handleSearch}>
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Digite o nome do personagem"
+        />
+        <button type="submit">Pesquisar</button>
+      </Form>
+      <NumberOfResults>
+        {`${list.length} `}
+        personagens encontrados
+      </NumberOfResults>
+      <Characters>
+        {list.map((character) => (
+          <Link key={character.id} to={`/character/${character.name}`}>
+            <img src={character.image.icon_url} alt={character.name} />
+            <div>
+              <strong>{character.name}</strong>
+            </div>
+            <p>{character.id}</p>
+          </Link>
+        ))}
+      </Characters>
+    </>
+  );
+};
 
 export default Home;
