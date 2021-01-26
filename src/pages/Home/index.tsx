@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { config } from '../../config';
 import api from '../../services/api';
+import { ListState } from '../../store/list.store';
 import { Title, Form, Characters, NumberOfResults } from './styles';
 
 interface ApiResponse {
-  error: 'string';
+  error: string;
   number_of_page_results: number;
   number_of_total_results: number;
   status_code: number;
-  results: CharacterList[],
+  results: Character[],
 }
 
-interface CharacterList {
+export interface Character {
   aliases: string;
   birth?: string;
   deck: string;
@@ -29,16 +31,24 @@ interface CharacterList {
 
 const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [list, setList] = useState<CharacterList[]>([]);
+  const characterList = useSelector<ListState, ListState['list']>((state) => state.list);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    (async function getList() {
-      const response = await api.get<ApiResponse>(`api/characters/?api_key=${config.apiKey}&format=json`);
-      if (response && response.data) {
-        setList(response.data.results);
-      }
-    }());
-  }, []);
+    if (!characterList || !characterList.length) {
+      getList();
+    }
+  }, [characterList, getList]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function getList() {
+    const response = await api.get<ApiResponse>(`api/characters/?api_key=${config.apiKey}&format=json`);
+    if (response && response.data) {
+      dispatch(setListAction(response.data.results));
+    }
+  }
+
+  const setListAction = (list: Character[]) => ({ type: 'SET_LIST', title: list });
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,12 +66,12 @@ const Home: React.FC = () => {
         <button type="submit">Pesquisar</button>
       </Form>
       <NumberOfResults>
-        {`${list.length} `}
+        {`${characterList.length} `}
         personagens encontrados
       </NumberOfResults>
       <Characters>
-        {list.map((character) => (
-          <Link key={character.id} to={`/character/${character.name}`}>
+        {characterList.map((character: Character) => (
+          <Link key={character.id} to={{ pathname: `/character/${character.name}`, state: character }}>
             <img src={character.image.icon_url} alt={character.name} />
             <div>
               <strong>{character.name}</strong>
