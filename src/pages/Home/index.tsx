@@ -14,12 +14,17 @@ interface ApiResponse {
   results: Character[],
 }
 
+export enum GenderTypes {
+  MALE = 1,
+  FEMALE = 2,
+}
+
 export interface Character {
   aliases: string;
   birth?: string;
   deck: string;
   description: string;
-  gender: number;
+  gender: GenderTypes;
   id: number;
   image: {
     icon_url: string;
@@ -38,17 +43,14 @@ const Home: React.FC = () => {
     if (!characterList || !characterList.length) {
       getList();
     }
-  }, [characterList, getList]);
+  }, [characterList]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getList() {
     const response = await api.get<ApiResponse>(`api/characters/?api_key=${config.apiKey}&format=json`);
     if (response && response.data) {
-      dispatch(setListAction(response.data.results));
+      dispatch({ type: 'SET_LIST', title: response.data.results });
     }
   }
-
-  const setListAction = (list: Character[]) => ({ type: 'SET_LIST', title: list });
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
