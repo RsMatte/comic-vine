@@ -1,6 +1,8 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { ErrorMessage, Form, FormItem } from './styles';
 import { CharacterValues, GenderTypes, ICharacterProps } from '../../../types';
@@ -8,6 +10,7 @@ import { editCharacter } from '../../../store/actions';
 
 const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const validationSchema = Yup.object().shape({
     aliases: Yup.string().required('O campo Apelidos é obrigatório'),
@@ -27,6 +30,8 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
     validationSchema,
     onSubmit: (values) => {
       dispatch(editCharacter(values));
+      history.push('/');
+      toast.success('Salvo com sucesso');
     },
   });
 
@@ -98,7 +103,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
         />
       </FormItem>
 
-      <button type="submit">Submit</button>
+      <button type="submit">Salvar</button>
     </Form>
   );
 };

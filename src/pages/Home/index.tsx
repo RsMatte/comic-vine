@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import { setList } from '../../store/actions';
+import { displayFullList, searchFavorites, searchList, setList } from '../../store/actions';
 import { Character, ListState } from '../../types';
-import { Title, Form, Characters, Result, ErrorMessage } from './styles';
+import { Title, Form, Characters, Result, ErrorMessage, ButtonWrapper } from './styles';
 
 interface ApiResponse {
   error: string;
@@ -20,14 +20,17 @@ const Home: React.FC = () => {
   const [apiError, setError] = useState(false);
   const dispatch = useDispatch();
   const characterList = useSelector<ListState, ListState['list']>((state) => {
-    if (state.list.length > 0) {
-      return JSON.parse(state.list as string);
+    if (state.searchState) {
+      return JSON.parse(state.searchList as string);
     }
-    return state.list;
+    if (state.favoriteState) {
+      return JSON.parse(state.favoriteList as string);
+    }
+    return JSON.parse(state.list as string);
   });
 
   useEffect(() => {
-    if (!characterList || !characterList.length) {
+    if (characterList.length === 0) {
       setLoading(true);
 
       api.get<ApiResponse>('api/characters')
@@ -45,6 +48,15 @@ const Home: React.FC = () => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(searchList(searchTerm));
+  };
+
+  const handleFavorites = () => {
+    dispatch(searchFavorites());
+  };
+
+  const handleFullList = () => {
+    dispatch(displayFullList());
   };
 
   return (
@@ -58,6 +70,10 @@ const Home: React.FC = () => {
         />
         <button type="submit">Pesquisar</button>
       </Form>
+      <ButtonWrapper>
+        <button type="button" onClick={handleFavorites}>Favoritos</button>
+        <button type="button" onClick={handleFullList}>Lista Completa</button>
+      </ButtonWrapper>
 
       {apiError && <ErrorMessage>Erro ao encontrar a lista de personagens</ErrorMessage>}
 
@@ -65,7 +81,7 @@ const Home: React.FC = () => {
         {
           loading
             ? 'Carregando personagens...'
-            : `${characterList.length} personagens encontrados`
+            : `${characterList.length} personagens encontrado(s)`
         }
       </Result>
       <Characters>

@@ -11,6 +11,23 @@ export const Title = styled.h1`
   margin-bottom: 30px;
 `;
 
+export const HeaderWrapper = styled.div`
+  display: flex;
+  max-width: 700px;
+  flex-direction: column;
+  align-items: center;
+
+  > img {
+    max-height: 500px;
+    border: 2px solid black;
+  }
+
+  > div {
+    margin: 30px 0;
+    font-weight: 600;
+  }
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-around;

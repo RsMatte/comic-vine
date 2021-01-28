@@ -37,6 +37,10 @@ export enum GenderTypes {
 
 export interface ListState {
   list: Character[] | string;
+  searchList: Character[] | string;
+  favoriteList: Character[] | string;
+  searchState: boolean,
+  favoriteState: boolean;
 }
 
-export type Action = { type: string, payload: Character[] | CharacterValues }
+export type Action = { type: string, payload?: Character[] | CharacterValues | string }

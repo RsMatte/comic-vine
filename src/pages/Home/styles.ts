@@ -45,6 +45,30 @@ export const Form = styled.form`
   }
 `;
 
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  max-width: 700px;
+
+  margin-top: 30px;
+
+  > button {
+    width: 30%;
+    height: 40px;
+    background: #f00;
+    border-radius: 5px;
+    border: 0px;
+    color: #fff;
+    font-weight: bold;
+
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #ffa500;
+    }
+  }
+`;
+
 export const ErrorMessage = styled.div`
   color: red;
   margin-top: 30px;
