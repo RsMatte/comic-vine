@@ -5,7 +5,6 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin-top: 40px;
 
   > button {
@@ -16,7 +15,6 @@ export const Form = styled.form`
     border: 0px;
     color: #fff;
     font-weight: bold;
-
     transition: background-color 0.2s;
 
     &:hover {
@@ -29,7 +27,6 @@ export const FormItem = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-
   margin-bottom: 30px;
 
   > input {

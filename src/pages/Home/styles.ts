@@ -4,15 +4,13 @@ export const Title = styled.h1`
   font-size: 35px;
   color: #3a3a3a;
   line-height: 56px;
-
   margin-top: 80px;
 `;
 
 export const Form = styled.form`
-  margin-top: 40px;
   max-width: 700px;
-
   display: flex;
+  margin-top: 40px;
 
   > input {
     flex: 1;
@@ -49,8 +47,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   max-width: 700px;
-
-  margin-top: 30px;
+  margin-top: 40px;
 
   > button {
     width: 30%;
@@ -60,7 +57,6 @@ export const ButtonWrapper = styled.div`
     border: 0px;
     color: #fff;
     font-weight: bold;
-
     transition: background-color 0.2s;
 
     &:hover {
@@ -75,13 +71,14 @@ export const ErrorMessage = styled.div`
 `;
 
 export const Result = styled.div`
-  color: gray;
+  font-size: 20px;
+  color: red;
   margin-top: 30px;
 `;
 
 export const Characters = styled.div`
-  margin-top: 10px;
   max-width: 700px;
+  margin-top: 10px;
 
   > a {
     background: #fff;

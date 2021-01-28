@@ -6,7 +6,6 @@ export const Title = styled.h1`
   line-height: 50px;
   max-width: 700px;
   text-align: center;
-
   margin-top: 80px;
   margin-bottom: 30px;
 `;
@@ -32,7 +31,6 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   max-width: 700px;
-
   margin-bottom: 50px;
 
   > button {
@@ -43,7 +41,6 @@ export const ButtonWrapper = styled.div`
     border: 0px;
     color: #fff;
     font-weight: bold;
-
     transition: background-color 0.2s;
 
     &:hover {
