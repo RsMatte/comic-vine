@@ -48,7 +48,7 @@ const Home: React.FC = () => {
   async function getList() {
     const response = await api.get<ApiResponse>(`api/characters/?api_key=${config.apiKey}&format=json`);
     if (response && response.data) {
-      dispatch({ type: 'SET_LIST', title: response.data.results });
+      dispatch({ type: 'SET_LIST', payload: response.data.results });
     }
   }
 

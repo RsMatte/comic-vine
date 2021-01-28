@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Form, FormItem } from './styles';
+import { ErrorMessage, Form, FormItem } from './styles';
 import { Character, GenderTypes } from '../../Home';
 
 interface ICharacterProps {
@@ -24,6 +24,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
   const validationSchema = Yup.object().shape({
     aliases: Yup.string().required('O campo Apelidos é obrigatório'),
     name: Yup.string().required('O campo Nome é obrigatório'),
+    real_name: Yup.string().required('O campo Nome Verdadeiro é obrigatório'),
   });
 
   const formik = useFormik<CharacterValues>({
@@ -37,7 +38,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      dispatch({ type: 'EDIT_CHARACTER', title: values });
+      dispatch({ type: 'EDIT_CHARACTER', payload: values });
     },
   });
 
@@ -50,20 +51,20 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormItem>
-        <label>Nome</label>
+        <label htmlFor="name">Nome</label>
+        {errors.name && touched.name && <ErrorMessage>{errors.name}</ErrorMessage>}
         <input
           id="name"
           name="name"
           type="text"
           onChange={handleChange}
           value={values.name}
-          className={errors.name && touched.name
-            ? 'input-error' : undefined}
         />
       </FormItem>
 
       <FormItem>
-        <label>Nome Verdadeiro</label>
+        <label htmlFor="real_name">Nome Verdadeiro</label>
+        {errors.real_name && touched.real_name && <ErrorMessage>{errors.real_name}</ErrorMessage>}
         <input
           id="real_name"
           name="real_name"
@@ -74,7 +75,8 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       </FormItem>
 
       <FormItem>
-        <label>Apelidos</label>
+        <label htmlFor="aliases">Apelidos</label>
+        {errors.aliases && touched.aliases && <ErrorMessage>{errors.aliases}</ErrorMessage>}
         <input
           id="aliases"
           name="aliases"
@@ -85,7 +87,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       </FormItem>
 
       <FormItem>
-        <label>Gênero</label>
+        <label htmlFor="gender">Gênero</label>
         <select
           name="gender"
           id="gender"
@@ -98,7 +100,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       </FormItem>
 
       <FormItem>
-        <label>Data de Nascimento</label>
+        <label htmlFor="birth">Data de Nascimento</label>
         <input
           id="birth"
           name="birth"

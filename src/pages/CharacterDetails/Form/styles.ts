@@ -48,3 +48,7 @@ export const FormItem = styled.div`
     border-radius: 5px;
   }
 `;
+
+export const ErrorMessage = styled.div`
+  color: red;
+`;
