@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { config } from '../../config';
 import api from '../../services/api';
-import { ListState } from '../../store/list.store';
-import { Title, Form, Characters, NumberOfResults } from './styles';
+import { setList } from '../../store/actions';
+import { Character, ListState } from '../../types';
+import { Title, Form, Characters, Result, ErrorMessage } from './styles';
 
 interface ApiResponse {
   error: string;
@@ -14,43 +14,34 @@ interface ApiResponse {
   results: Character[],
 }
 
-export enum GenderTypes {
-  MALE = 1,
-  FEMALE = 2,
-}
-
-export interface Character {
-  aliases: string;
-  birth?: string;
-  deck: string;
-  description: string;
-  gender: GenderTypes;
-  id: number;
-  image: {
-    icon_url: string;
-    original_url: string;
-  };
-  name: string;
-  real_name: string;
-}
-
 const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const characterList = useSelector<ListState, ListState['list']>((state) => state.list);
+  const [loading, setLoading] = useState(false);
+  const [apiError, setError] = useState(false);
   const dispatch = useDispatch();
+  const characterList = useSelector<ListState, ListState['list']>((state) => {
+    if (state.list.length > 0) {
+      return JSON.parse(state.list as string);
+    }
+    return state.list;
+  });
 
   useEffect(() => {
     if (!characterList || !characterList.length) {
-      getList();
-    }
-  }, [characterList]);
+      setLoading(true);
 
-  async function getList() {
-    const response = await api.get<ApiResponse>(`api/characters/?api_key=${config.apiKey}&format=json`);
-    if (response && response.data) {
-      dispatch({ type: 'SET_LIST', payload: response.data.results });
+      api.get<ApiResponse>('api/characters')
+        .then((response) => {
+          dispatch(setList(response.data.results));
+        })
+        .catch(() => {
+          setError(true);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
-  }
+  }, []);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,12 +58,18 @@ const Home: React.FC = () => {
         />
         <button type="submit">Pesquisar</button>
       </Form>
-      <NumberOfResults>
-        {`${characterList.length} `}
-        personagens encontrados
-      </NumberOfResults>
+
+      {apiError && <ErrorMessage>Erro ao encontrar a lista de personagens</ErrorMessage>}
+
+      <Result>
+        {
+          loading
+            ? 'Carregando personagens...'
+            : `${characterList.length} personagens encontrados`
+        }
+      </Result>
       <Characters>
-        {characterList.map((character: Character) => (
+        {(characterList as Character[]).map((character: Character) => (
           <Link key={character.id} to={{ pathname: `/character/${character.name}`, state: character }}>
             <img src={character.image.icon_url} alt={character.name} />
             <div>

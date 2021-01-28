@@ -1,22 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { ErrorMessage, Form, FormItem } from './styles';
-import { Character, GenderTypes } from '../../Home';
-
-interface ICharacterProps {
-  character: Character;
-}
-
-export interface CharacterValues {
-  id: number;
-  aliases: string;
-  birth?: string;
-  gender: GenderTypes;
-  name: string;
-  real_name: string;
-}
+import { CharacterValues, GenderTypes, ICharacterProps } from '../../../types';
+import { editCharacter } from '../../../store/actions';
 
 const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
   const dispatch = useDispatch();
@@ -38,7 +26,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      dispatch({ type: 'EDIT_CHARACTER', payload: values });
+      dispatch(editCharacter(values));
     },
   });
 

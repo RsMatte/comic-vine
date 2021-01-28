@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Character } from '../Home';
+import { Character } from '../../types';
 import CharacterDescription from './Description/CharacterDescription';
 import CharacterForm from './Form/CharacterForm';
 import { ButtonWrapper, Title } from './styles';
