@@ -1,46 +1,61 @@
-# Getting Started with Create React App
+## Teste Meliuz
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto realizado em React e criado através da ferramenta [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Instruções de Execução
 
-In the project directory, you can run:
+- Clonar o repositório.
+- Instalar o [Yarn](https://www.npmjs.com/package/yarn).
+- Executar `yarn` na pasta raiz do projeto para instalar as dependências.
+- Executar `yarn start` na pasta raiz do projeto para iniciar o projeto. Para acessar no browser, basta acessar http://localhost:3003.
 
-### `yarn start`
+### Bibliotecas de terceiros
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Dependência | Função |
+| ------ | ------ |
+| [axios](https://github.com/axios/axios)    | Cliente utilizado para fazer requisições HTTP  |
+| [formik](https://formik.org/)    | Gerenciador de formulários no React  |
+| [html-react-parser](https://www.npmjs.com/package/html-react-parser)    | Converte uma string HTML em elementos do React  |
+| [redux](https://www.npmjs.com/package/redux)    | Gerenciador de estado em um container de componentes  |
+| [redux-persist](https://www.npmjs.com/package/redux-persist)   | Utilizado para salvar o estado do redux no localStorage  |
+| [styled-components](https://www.npmjs.com/package/styled-components)    | Permite utilização do CSS em JS através de componentes  |
+| [typescript](https://www.npmjs.com/package/typescript)    | Superset da linguagem JavaScript, permite a utilização de tipagem estática  |
+| [yup](https://www.npmjs.com/package/yup)    | Permite a utilização de schemas para validação de dados  |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+### API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Foi utilizada apenas uma requisição HTTP nesse projeto, para retornar uma lista de 100 personagens através da URL: https://comicvine.gamespot.com.
+Como a resposta sempre é bloqueada pelo CORS quando a origem é um localhost, foi utilizado um proxy através da URL: https://cors-anywhere.herokuapp.com/.
 
-### `yarn build`
+| Método | Rota | Descrição | Parâmetros |
+|-------| ------ | ---- | ------ | ---- | 
+|GET| /api/characters       |  Retorna a lista de personagens     | apiKey, format |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Redux / Persist
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A API citada acima só é chamada uma vez, quando se inicia o projeto pela primeira vez, pois em seguida a lista de personagens é salva no localStorage do navegador pelo redux-persist e utilizada em todas as funções.
 
-### `yarn eject`
+Recursos salvos no localStorage:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Lista principal de personagens, assim que a API é chamada pela primeira vez.
+- Lista de busca por termo, assim que o usuário realiza a busca.
+- Lista de personagens favoritos.
+- Edição de dados dos personagens.
+- Estado de busca booleano.
+- Estado de favoritos booleano.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Como citado, existem 3 listas distintas salvas no storage, e são chamadas pela variável characterList no componente Home de acordo com a escolha do usuário.
+Ao realizar uma busca, o estado de busca é salvo como verdadeiro, e a variável recebe a lista de busca. Ao clicar em "Favoritos", o estado de favoritos é salvo como verdadeiro, e a variável recebe a lista de favoritos adicionados manualmente por ele. Ao clicar em "Lista Completa", os dois estados são setados como falso e variável recebe a lista principal.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Não é a situação mais prática ter 3 listas salvas no frontend, e frequentemente com dados duplicados, porém acabei achando a melhor solução para o problema proposto. Inicialmente havia salvado apenas uma lista, e os estados de busca e favoritos, assim como os filtros eram gerenciados pelo estado do próprio componente, porém o código acabou ficando muito grande e difícil de trabalhar, além de ir contra a proposta de utilizar o Redux da melhor maneira possível.
+A solução final acabou ficando com um funcionamento muito bom, permitindo o usuário recarregar a página, e usar os botões de goBack e goForward sem perder os estados.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Considerações finais
 
-## Learn More
+Os testes e o layout do projeto no geral acabaram ficando mais simples, devido ao curto tempo disponível para o tamanho do projeto, e optei por entregar dentro do prazo (aos 45 do segundo tempo).
+Os testes estão sendo feito no formulário de edição dos personagens e na busca na página inicial, que são os principais pontos de interação do cliente com a aplicação, e portanto locais críticos.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Gostei muito do desafio, acho que tem um bom papel em medir as habilidades do candidato.
+Obrigado pela atenção e ficarei grato por qualquer feedback se possível =D
