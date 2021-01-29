@@ -5,9 +5,9 @@ Projeto realizado em React e criado através da ferramenta [Create React App](ht
 ### Instruções de Execução
 
 - Clonar o repositório.
-- Instalar o [Yarn](https://www.npmjs.com/package/yarn).
+- Instalar o [yarn](https://www.npmjs.com/package/yarn).
 - Executar `yarn` na pasta raiz do projeto para instalar as dependências.
-- Executar `yarn start` na pasta raiz do projeto para iniciar o projeto. Para acessar no browser, basta acessar http://localhost:3003.
+- Executar `yarn start` na pasta raiz do projeto para iniciar o projeto. Para visualizar no browser, basta acessar http://localhost:3000.
 
 ### Bibliotecas de terceiros
 
@@ -29,8 +29,8 @@ Foi utilizada apenas uma requisição HTTP nesse projeto, para retornar uma list
 Como a resposta sempre é bloqueada pelo CORS quando a origem é um localhost, foi utilizado um proxy através da URL: https://cors-anywhere.herokuapp.com/.
 
 | Método | Rota | Descrição | Parâmetros |
-|-------| ------ | ---- | ------ | ---- | 
-|GET| /api/characters       |  Retorna a lista de personagens     | apiKey, format |
+|-------| ------ | ---- | ------ |
+|GET    | /api/characters       |  Retorna a lista de personagens     | apiKey, format |
 
 
 ### Redux / Persist
@@ -47,15 +47,15 @@ Recursos salvos no localStorage:
 - Estado de favoritos booleano.
 
 Como citado, existem 3 listas distintas salvas no storage, e são chamadas pela variável characterList no componente Home de acordo com a escolha do usuário.
-Ao realizar uma busca, o estado de busca é salvo como verdadeiro, e a variável recebe a lista de busca. Ao clicar em "Favoritos", o estado de favoritos é salvo como verdadeiro, e a variável recebe a lista de favoritos adicionados manualmente por ele. Ao clicar em "Lista Completa", os dois estados são setados como falso e variável recebe a lista principal.
+Ao realizar uma busca, o estado de busca é salvo como verdadeiro, e a variável recebe a lista de busca. Ao clicar em "Favoritos", o estado de favoritos é salvo como verdadeiro, e a variável recebe a lista de favoritos adicionados manualmente por ele. Ao clicar em "Lista Completa", os dois estados são setados como falso e a variável recebe a lista principal.
 
 Não é a situação mais prática ter 3 listas salvas no frontend, e frequentemente com dados duplicados, porém acabei achando a melhor solução para o problema proposto. Inicialmente havia salvado apenas uma lista, e os estados de busca e favoritos, assim como os filtros eram gerenciados pelo estado do próprio componente, porém o código acabou ficando muito grande e difícil de trabalhar, além de ir contra a proposta de utilizar o Redux da melhor maneira possível.
 A solução final acabou ficando com um funcionamento muito bom, permitindo o usuário recarregar a página, e usar os botões de goBack e goForward sem perder os estados.
 
 ### Considerações finais
 
-Os testes e o layout do projeto no geral acabaram ficando mais simples, devido ao curto tempo disponível para o tamanho do projeto, e optei por entregar dentro do prazo (aos 45 do segundo tempo).
-Os testes estão sendo feito no formulário de edição dos personagens e na busca na página inicial, que são os principais pontos de interação do cliente com a aplicação, e portanto locais críticos.
+Os testes e o layout do projeto no geral acabaram ficando mais simples, devido ao curto tempo disponível para o tamanho do projeto, e optei por entregar dentro do prazo (mesmo que aos 45 do segundo tempo).
+Os testes estão sendo feitos no formulário de edição dos personagens e na busca na página inicial, que são os principais pontos de interação do cliente com a aplicação, e portanto locais críticos.
 
 Gostei muito do desafio, acho que tem um bom papel em medir as habilidades do candidato.
 Obrigado pela atenção e ficarei grato por qualquer feedback se possível =D
