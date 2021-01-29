@@ -25,12 +25,12 @@ Projeto realizado em React e criado através da ferramenta [Create React App](ht
 
 ### API
 
-Foi utilizada apenas uma requisição HTTP nesse projeto, para retornar uma lista de 100 personagens através da URL: https://comicvine.gamespot.com.
+Foi utilizada apenas uma requisição HTTP nesse projeto, para retornar uma lista de 100 personagens através da URL: https://comicvine.gamespot.com.  
 Como a resposta sempre é bloqueada pelo CORS quando a origem é um localhost, foi utilizado um proxy através da URL: https://cors-anywhere.herokuapp.com/.
 
 | Método | Rota | Descrição | Parâmetros |
 |-------| ------ | ---- | ------ |
-|GET    | /api/characters       |  Retorna a lista de personagens     | apiKey, format |
+|GET    | /api/characters       |  Retorna a lista de personagens     | api_key, format |
 
 
 ### Redux / Persist
