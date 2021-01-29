@@ -64,6 +64,7 @@ const Home: React.FC = () => {
       <Title>Encontre os seus personagens preferidos</Title>
       <Form onSubmit={handleSearch}>
         <input
+          data-testid="input"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Digite o nome do personagem"
