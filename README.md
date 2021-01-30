@@ -14,8 +14,10 @@ Projeto realizado em React e criado através da ferramenta [Create React App](ht
 | Dependência | Função |
 | ------ | ------ |
 | [axios](https://github.com/axios/axios)    | Cliente utilizado para fazer requisições HTTP  |
+| [eslint](https://www.npmjs.com/package/eslint)    | Linter para JavaScript  |
 | [formik](https://formik.org/)    | Gerenciador de formulários no React  |
 | [html-react-parser](https://www.npmjs.com/package/html-react-parser)    | Converte uma string HTML em elementos do React  |
+| [react-toastify](https://www.npmjs.com/package/react-toastify)    | Adiciona notificações para os usuários com praticidade  |
 | [redux](https://www.npmjs.com/package/redux)    | Gerenciador de estado em um container de componentes  |
 | [redux-persist](https://www.npmjs.com/package/redux-persist)   | Utilizado para salvar o estado do redux no localStorage  |
 | [styled-components](https://www.npmjs.com/package/styled-components)    | Permite utilização do CSS em JS através de componentes  |
@@ -54,7 +56,7 @@ A solução final acabou ficando com um funcionamento muito bom, permitindo o us
 
 ### Considerações finais
 
-Os testes e o layout do projeto no geral acabaram ficando mais simples, devido ao curto tempo disponível para o tamanho do projeto, e optei por entregar dentro do prazo (mesmo que aos 45 do segundo tempo).
+Os testes e o layout do projeto no geral acabaram ficando mais simples, devido ao pouco tempo disponível que tive essa semana, e optei por entregar dentro do prazo.
 Os testes estão sendo feitos no formulário de edição dos personagens e na busca na página inicial, que são os principais pontos de interação do cliente com a aplicação, e portanto locais críticos.
 
 Gostei muito do desafio, acho que tem um bom papel em medir as habilidades do candidato.
