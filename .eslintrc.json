@@ -40,7 +40,6 @@
     "no-use-before-define": "off",
     "object-curly-newline": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "jsx-a11y/label-has-for": "off",
     "no-shadow": "off",
     "react/prop-types": "off",
     "import/extensions": [

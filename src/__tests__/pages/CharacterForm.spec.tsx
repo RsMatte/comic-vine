@@ -1,16 +1,22 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import CharacterForm from '../../pages/CharacterDetails/Form/CharacterForm';
 import { store } from '../../store/store';
 import { Character } from '../../types';
 
-const mockedHistoryPush = jest.fn();
+const mockedDispatch = jest.fn();
+
+jest.mock('react-redux', () => ({
+  useDispatch: () => (mockedDispatch),
+  useSelector: jest.requireActual('react-redux').useSelector,
+  Provider: jest.requireActual('react-redux').Provider,
+}));
 
 jest.mock('react-router-dom', () => ({
   useHistory: () => ({
-    push: mockedHistoryPush,
+    push: jest.fn(),
   }),
 }));
 
@@ -28,21 +34,35 @@ const character: Character = {
   real_name: 'real_name',
 };
 
-describe('Character Form', () => {
-  it('should be able to submit form', async () => {
-    const { getByTestId, getByText } = render(<Provider store={store}><CharacterForm character={character} /></Provider>);
+describe('Character Form Submit', () => {
+  it('should not submit with an empty name', async () => {
+    const { getByText, getByTestId } = render(<Provider store={store}><CharacterForm character={character} /></Provider>);
     const buttonElement = getByText('Salvar');
 
-    expect(getByTestId('name')).toBeTruthy();
-    expect(getByTestId('real_name')).toBeTruthy();
-    expect(getByTestId('aliases')).toBeTruthy();
-    expect(getByTestId('gender')).toBeTruthy();
-    expect(getByTestId('birth')).toBeTruthy();
+    const nameInput = getByTestId('name');
+    screen.getByTestId('real_name');
+    screen.getByTestId('aliases');
+    screen.getByTestId('gender');
+    screen.getByTestId('birth');
+
+    fireEvent.change(nameInput, { target: { value: '' } });
+    fireEvent.click(buttonElement);
+
+    await waitFor(() => {
+      expect(mockedDispatch).not.toHaveBeenCalled();
+    });
+  });
+
+  it('should submit and trigger dispatch with the correct values', async () => {
+    const { getByText } = render(<Provider store={store}><CharacterForm character={character} /></Provider>);
+    const buttonElement = getByText('Salvar');
 
     fireEvent.click(buttonElement);
 
     await waitFor(() => {
-      expect(mockedHistoryPush).toHaveBeenCalledWith('/');
+      expect(mockedDispatch).toHaveBeenCalledWith({
+        type: 'EDIT_CHARACTER',
+        payload: { id: 1, aliases: 'aliases', gender: 1, name: 'name', real_name: 'real_name', birth: '' } });
     });
   });
 });

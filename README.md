@@ -54,10 +54,17 @@ Ao realizar uma busca, o estado de busca é salvo como verdadeiro, e a variável
 Não é a situação mais prática ter 3 listas salvas no frontend, e frequentemente com dados duplicados, porém acabei achando a melhor solução para o problema proposto. Inicialmente havia salvado apenas uma lista, e os estados de busca e favoritos, assim como os filtros eram gerenciados pelo estado do próprio componente, porém o código acabou ficando muito grande e difícil de trabalhar, além de ir contra a proposta de utilizar o Redux da melhor maneira possível.
 A solução final acabou ficando com um funcionamento muito bom, permitindo o usuário recarregar a página, e usar os botões de goBack e goForward sem perder os estados.
 
+### Testes
+
+Para rodar os testes: execute:
+
+- `yarn test` na pasta raiz do projeto.
+
+Os testes estão sendo feitos no formulário de edição dos personagens e na busca na página inicial, que são os principais pontos de interação do cliente com a aplicação, e portanto locais críticos.
+
 ### Considerações finais
 
 Os testes e o layout do projeto no geral acabaram ficando mais simples, devido ao pouco tempo disponível que tive essa semana, e optei por entregar dentro do prazo.
-Os testes estão sendo feitos no formulário de edição dos personagens e na busca na página inicial, que são os principais pontos de interação do cliente com a aplicação, e portanto locais críticos.
 
 Gostei muito do desafio, acho que tem um bom papel em medir as habilidades do candidato.
 Obrigado pela atenção e ficarei grato por qualquer feedback se possível =D

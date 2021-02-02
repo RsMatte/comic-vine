@@ -47,6 +47,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
         <label htmlFor="name">Nome</label>
         {errors.name && touched.name && <ErrorMessage>{errors.name}</ErrorMessage>}
         <input
+          id="name"
           data-testid="name"
           name="name"
           type="text"
@@ -59,6 +60,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
         <label htmlFor="real_name">Nome Verdadeiro</label>
         {errors.real_name && touched.real_name && <ErrorMessage>{errors.real_name}</ErrorMessage>}
         <input
+          id="real_name"
           data-testid="real_name"
           name="real_name"
           type="text"
@@ -71,6 +73,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
         <label htmlFor="aliases">Apelidos</label>
         {errors.aliases && touched.aliases && <ErrorMessage>{errors.aliases}</ErrorMessage>}
         <input
+          id="aliases"
           data-testid="aliases"
           name="aliases"
           type="text"
@@ -82,6 +85,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       <FormItem>
         <label htmlFor="gender">Gênero</label>
         <select
+          id="gender"
           data-testid="gender"
           name="gender"
           value={values.gender}
@@ -95,6 +99,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       <FormItem>
         <label htmlFor="birth">Data de Nascimento</label>
         <input
+          id="birth"
           data-testid="birth"
           name="birth"
           type="date"

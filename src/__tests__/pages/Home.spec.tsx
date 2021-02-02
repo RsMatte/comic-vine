@@ -5,6 +5,7 @@ import Home from '../../pages/Home';
 import { store } from '../../store/store';
 
 const mockedDispatch = jest.fn();
+
 jest.mock('react-redux', () => ({
   useDispatch: () => (mockedDispatch),
   useSelector: jest.requireActual('react-redux').useSelector,
@@ -12,7 +13,7 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('Home Page submit', () => {
-  it('should be able to submit search term and trigger useDispatch', async () => {
+  it('should be able to submit search term and trigger useDispatch with the correct value', async () => {
     const { getByText, getByTestId } = render(<Provider store={store}><Home /></Provider>);
 
     const buttonElement = getByText('Pesquisar');
