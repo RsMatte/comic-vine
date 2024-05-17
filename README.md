@@ -1,70 +1,94 @@
-## Teste Meliuz
+## Meliuz Test
 
-Projeto realizado em React e criado através da ferramenta [Create React App](https://github.com/facebook/create-react-app).
 
-### Instruções de Execução
+Project built in React and created using [Create React App](https://github.com/facebook/create-react-app).
 
-- Clonar o repositório.
-- Instalar o [yarn](https://www.npmjs.com/package/yarn).
-- Executar `yarn` na pasta raiz do projeto para instalar as dependências.
-- Executar `yarn start` na pasta raiz do projeto para iniciar o projeto. Para visualizar no browser, basta acessar http://localhost:3000.
 
-### Bibliotecas de terceiros
+### Execution Instructions
 
-| Dependência | Função |
-| ------ | ------ |
-| [axios](https://github.com/axios/axios)    | Cliente utilizado para fazer requisições HTTP  |
-| [eslint](https://www.npmjs.com/package/eslint)    | Linter para JavaScript  |
-| [formik](https://formik.org/)    | Gerenciador de formulários no React  |
-| [html-react-parser](https://www.npmjs.com/package/html-react-parser)    | Converte uma string HTML em elementos do React  |
-| [react-toastify](https://www.npmjs.com/package/react-toastify)    | Adiciona notificações para os usuários com praticidade  |
-| [redux](https://www.npmjs.com/package/redux)    | Gerenciador de estado em um container de componentes  |
-| [redux-persist](https://www.npmjs.com/package/redux-persist)   | Utilizado para salvar o estado do redux no localStorage  |
-| [styled-components](https://www.npmjs.com/package/styled-components)    | Permite utilização do CSS em JS através de componentes  |
-| [typescript](https://www.npmjs.com/package/typescript)    | Superset da linguagem JavaScript, permite a utilização de tipagem estática  |
-| [yup](https://www.npmjs.com/package/yup)    | Permite a utilização de schemas para validação de dados  |
+
+- Clone the repository.
+- Install [yarn](https://www.npmjs.com/package/yarn).
+- Run `yarn` in the project root folder to install the dependencies.
+- Run `yarn start` in the project root folder to start the project. To view in the browser, simply go to http://localhost:3000.
+
+
+### Third-party libraries
+
+
+| Dependency | Function |
+| ----- | ------ |
+| [Axios](https://github.com/axios) | Client used to make HTTP requests |
+| [eslint](https://www.npmjs.com/package/eslint) | Linter for JavaScript |
+| [formik](https://formik.org/) | Form Manager at React |
+| [html-react-parser](https://www.npmjs.com/package/html-React-Parser) | Convert a HTML string to React elements |
+| [react-toastify](https://www.npmjs.com/package/react - toastify) | Add notifications for users with convenience |
+| [redux](https://www.npmjs.com/package/redux) | Status manager in a component container |
+| [redux-persist](https://www.npmjs.com/package/redux/persist) | Used to save the state of the redux on siteStorage |
+| [styled-components](https://www.npmjs.com/package/stylé-composants) | Allows the use of CSS in JS through components |
+| [typescript](https://www.npmjs.com/package/typescrit) | Superset of JavaScript language, allows the use of static typing |
+| [yup](https://www.npmjs.com/package/yup) | Allows the use of schemes for data validation |
+
+
 
 
 ### API
 
-Foi utilizada apenas uma requisição HTTP nesse projeto, para retornar uma lista de 100 personagens através da URL: https://comicvine.gamespot.com.  
-Como a resposta sempre é bloqueada pelo CORS quando a origem é um localhost, foi utilizado um proxy através da URL: https://cors-anywhere.herokuapp.com/.
 
-| Método | Rota | Descrição | Parâmetros |
-|-------| ------ | ---- | ------ |
-|GET    | /api/characters       |  Retorna a lista de personagens     | api_key, format |
+Only one HTTP request was used in this project to return a list of 100 characters via the URL: https://comicvine.gamespot.com.  
+As the answer is always blocked by CORS when the source is a localhost, a proxy was used via the URL: https://cors-anywhere.herokuapp.com/.
+
+
+| Method | Route | Description | Parameters |
+|------- | ------ | ---- |
+|GET | /api/characters | Returns character list | api_key, format |
+
+
 
 
 ### Redux / Persist
 
-A API citada acima só é chamada uma vez, quando se inicia o projeto pela primeira vez, pois em seguida a lista de personagens é salva no localStorage do navegador pelo redux-persist e utilizada em todas as funções.
 
-Recursos salvos no localStorage:
+The above-mentioned API is called only once, when you start the project for the first time, because then the list of characters is saved in the browser's Storage site by redux-persist and used in all functions.
 
-- Lista principal de personagens, assim que a API é chamada pela primeira vez.
-- Lista de busca por termo, assim que o usuário realiza a busca.
-- Lista de personagens favoritos.
-- Edição de dados dos personagens.
-- Estado de busca booleano.
-- Estado de favoritos booleano.
 
-Como citado, existem 3 listas distintas salvas no storage, e são chamadas pela variável characterList no componente Home de acordo com a escolha do usuário.
-Ao realizar uma busca, o estado de busca é salvo como verdadeiro, e a variável recebe a lista de busca. Ao clicar em "Favoritos", o estado de favoritos é salvo como verdadeiro, e a variável recebe a lista de favoritos adicionados manualmente por ele. Ao clicar em "Lista Completa", os dois estados são setados como falso e a variável recebe a lista principal.
+Locally saved resources
 
-Não é a situação mais prática ter 3 listas salvas no frontend, e frequentemente com dados duplicados, porém acabei achando a melhor solução para o problema proposto. Inicialmente havia salvado apenas uma lista, e os estados de busca e favoritos, assim como os filtros eram gerenciados pelo estado do próprio componente, porém o código acabou ficando muito grande e difícil de trabalhar, além de ir contra a proposta de utilizar o Redux da melhor maneira possível.
-A solução final acabou ficando com um funcionamento muito bom, permitindo o usuário recarregar a página, e usar os botões de goBack e goForward sem perder os estados.
 
-### Testes
+- Main list of characters, as soon as the API is called for the first time.
+- Search list by term, as soon as the user performs the search.
+- List of favorite characters.
+- Character data editing.
+- Boolean search status.
+- Boolean favourite status.
 
-Para rodar os testes: execute:
 
-- `yarn test` na pasta raiz do projeto.
+As mentioned, there are 3 distinct lists saved in the storage, and are called by the characterList variable in the Home component according to the user's choice.
+When performing a search, the search status is saved as true, and the variable receives the search list. By clicking on "Favorites", the status of favorites is saved as true, and the variable receives the list of favourites added manually by it. By clicking "Full List", the two states are set to false and the variable receives the main list.
 
-Os testes estão sendo feitos no formulário de edição dos personagens e na busca na página inicial, que são os principais pontos de interação do cliente com a aplicação, e portanto locais críticos.
 
-### Considerações finais
+It is not the most optimal situation to have 3 lists saved in the frontend, and often with duplicate data, but I ended up finding the best solution for the proposed problem. Initially I had saved only one list, and the search states and favorites, as well as the filters were managed by the state of the component itself, but the code ended up becoming too large and difficult to work with, in addition to going against the proposal to use Redux in the best possible way.
+The final solution ended up working smoothly, allowing the user to reload the page, and use the goBack and goForward buttons without losing the states.
 
-Os testes e o layout do projeto no geral acabaram ficando mais simples, devido ao pouco tempo disponível que tive essa semana, e optei por entregar dentro do prazo.
 
-Gostei muito do desafio, acho que tem um bom papel em medir as habilidades do candidato.
-Obrigado pela atenção e ficarei grato por qualquer feedback se possível =D
+### Tests
+
+
+To run the tests: run:
+
+
+- `yarn test` in the project root folder.
+
+
+The components being unit-tested are the character editing form and the search on the homepage, which are the main points of client interaction with the application, and therefore critical locations.
+
+
+### Final Considerations
+
+
+The testing and layout of the project in general ended up becoming simpler, due to the little time available that I had this week, and I chose to deliver within the deadline.
+
+
+I really enjoyed the challenge, and I think it has a good part in measuring the candidate's skills.
+Thank you for your attention and I will be grateful for any feedback
+
