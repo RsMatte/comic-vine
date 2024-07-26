@@ -6,7 +6,7 @@ import CharacterDetails from './pages/CharacterDetails';
 const Routes: React.FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact component={Home} />
+      <Route path="/index.html" exact component={Home} />
       <Route path="/character/:character" component={CharacterDetails} />
       <Redirect to="/" />
     </Switch>
