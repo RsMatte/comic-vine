@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const proxy = 'https://cors-anywhere.herokuapp.com/';
-
 const api = axios.create({
-  baseURL: `${proxy}https://comicvine.gamespot.com`,
+  baseURL: 'https://matte-static.s3.sa-east-1.amazonaws.com',
 });
 
 api.interceptors.request.use((axiosConfig) => ({

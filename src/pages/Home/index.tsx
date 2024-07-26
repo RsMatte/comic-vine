@@ -33,7 +33,7 @@ const Home: React.FC = () => {
     if (characterList.length === 0) {
       setLoading(true);
 
-      api.get<ApiResponse>('api/characters')
+      api.get<ApiResponse>('api/character-response.json')
         .then((response) => {
           dispatch(setList(response.data.results));
         })
