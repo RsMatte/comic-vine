@@ -21,12 +21,12 @@ const CharacterDetails: React.FC = () => {
 
   const addFavorite = () => {
     dispatch(markAsFavorite(character));
-    toast.success('Alterado com sucesso');
+    toast.success('Updated successfully');
   };
 
   const removeFavorite = () => {
     dispatch(dismarkAsFavorite(character));
-    toast.success('Alterado com sucesso');
+    toast.success('Updated successfully');
   };
 
   return (
@@ -36,18 +36,18 @@ const CharacterDetails: React.FC = () => {
       </Title>
 
       <ButtonWrapper>
-        <button type="button" onClick={addFavorite}>Adicionar Favorito</button>
-        <button type="button" onClick={removeFavorite}>Remover Favorito</button>
+        <button type="button" onClick={addFavorite}>Mark as favorite</button>
+        <button type="button" onClick={removeFavorite}>Remove as favorite</button>
       </ButtonWrapper>
 
       <HeaderWrapper>
-        <img src={character.image.original_url} alt={`foto original de ${character.name}`} />
+        <img src={character.image.original_url} alt={`${character.name}`} />
         <div>{character.deck}</div>
       </HeaderWrapper>
 
       <ButtonWrapper>
-        <button type="button" onClick={() => setCurrentPage('description')}>Descrição</button>
-        <button type="button" onClick={() => setCurrentPage('infos')}>Informações Gerais</button>
+        <button type="button" onClick={() => setCurrentPage('description')}>Description</button>
+        <button type="button" onClick={() => setCurrentPage('infos')}>Information</button>
       </ButtonWrapper>
       {
         currentPage === 'description'

@@ -61,28 +61,28 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Title>Encontre os seus personagens preferidos</Title>
+      <Title>Find your favorite characters</Title>
       <Form onSubmit={handleSearch}>
         <input
           data-testid="input"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Digite o nome do personagem"
+          placeholder="Type your character name"
         />
-        <button type="submit">Pesquisar</button>
+        <button type="submit">Search</button>
       </Form>
       <ButtonWrapper>
-        <button type="button" onClick={handleFavorites}>Favoritos</button>
-        <button type="button" onClick={handleFullList}>Lista Completa</button>
+        <button type="button" onClick={handleFavorites}>Favorites</button>
+        <button type="button" onClick={handleFullList}>Full List</button>
       </ButtonWrapper>
 
-      {apiError && <ErrorMessage>Erro ao encontrar a lista de personagens</ErrorMessage>}
+      {apiError && <ErrorMessage>Error while fetching character list</ErrorMessage>}
 
       <Result>
         {
           loading
-            ? 'Carregando personagens...'
-            : `${characterList.length} personagens encontrado(s)`
+            ? 'Loading characters...'
+            : `${characterList.length} characters found`
         }
       </Result>
       <Characters>

@@ -13,9 +13,9 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
   const history = useHistory();
 
   const validationSchema = Yup.object().shape({
-    aliases: Yup.string().required('O campo Apelidos é obrigatório'),
-    name: Yup.string().required('O campo Nome é obrigatório'),
-    real_name: Yup.string().required('O campo Nome Verdadeiro é obrigatório'),
+    aliases: Yup.string().required('Nicknames field is mandatory'),
+    name: Yup.string().required('Name field is mandatory'),
+    real_name: Yup.string().required('Real Name field is mandatory'),
   });
 
   const formik = useFormik<CharacterValues>({
@@ -31,7 +31,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
     onSubmit: (values) => {
       dispatch(editCharacter(values));
       history.push('/');
-      toast.success('Salvo com sucesso');
+      toast.success('Saved successfully');
     },
   });
 
@@ -44,7 +44,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormItem>
-        <label htmlFor="name">Nome</label>
+        <label htmlFor="name">Name</label>
         {errors.name && touched.name && <ErrorMessage>{errors.name}</ErrorMessage>}
         <input
           id="name"
@@ -57,7 +57,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       </FormItem>
 
       <FormItem>
-        <label htmlFor="real_name">Nome Verdadeiro</label>
+        <label htmlFor="real_name">Real Name</label>
         {errors.real_name && touched.real_name && <ErrorMessage>{errors.real_name}</ErrorMessage>}
         <input
           id="real_name"
@@ -70,7 +70,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       </FormItem>
 
       <FormItem>
-        <label htmlFor="aliases">Apelidos</label>
+        <label htmlFor="aliases">Nicknames</label>
         {errors.aliases && touched.aliases && <ErrorMessage>{errors.aliases}</ErrorMessage>}
         <input
           id="aliases"
@@ -83,7 +83,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
       </FormItem>
 
       <FormItem>
-        <label htmlFor="gender">Gênero</label>
+        <label htmlFor="gender">Gender</label>
         <select
           id="gender"
           data-testid="gender"
@@ -91,13 +91,13 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
           value={values.gender}
           onChange={handleSelectChange('gender')}
         >
-          <option value={GenderTypes.MALE}>Masculino</option>
-          <option value={GenderTypes.FEMALE}>Feminino</option>
+          <option value={GenderTypes.MALE}>Male</option>
+          <option value={GenderTypes.FEMALE}>Female</option>
         </select>
       </FormItem>
 
       <FormItem>
-        <label htmlFor="birth">Data de Nascimento</label>
+        <label htmlFor="birth">Date of Birth</label>
         <input
           id="birth"
           data-testid="birth"
@@ -108,7 +108,7 @@ const CharacterForm: React.FC<ICharacterProps> = ({ character }) => {
         />
       </FormItem>
 
-      <button type="submit">Salvar</button>
+      <button type="submit">Save</button>
     </Form>
   );
 };
